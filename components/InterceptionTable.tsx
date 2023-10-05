@@ -5,9 +5,10 @@ interface InterceptionTableProps {
   columns: string[];
   initialCheckedCells?: { [key: string]: boolean };
   onCheckboxChange: (row: string, column: string) => void;
+  title: string;
 }
 
-const InterceptionTable: React.FC<InterceptionTableProps> = ({ rows, columns, initialCheckedCells, onCheckboxChange }) => {
+const InterceptionTable: React.FC<InterceptionTableProps> = ({ rows, columns, initialCheckedCells, title, onCheckboxChange }) => {
   
   console.log(initialCheckedCells)
   
@@ -21,26 +22,28 @@ const InterceptionTable: React.FC<InterceptionTableProps> = ({ rows, columns, in
   }, [initialCheckedCells]);
 
   return (
-    <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+    <table className='custom-table' style={{ borderCollapse: 'collapse', width: '100%' }}>
       <thead>
         <tr>
-          <th></th>
+          <th className='text-black'>{title}</th>
           {columns.map((column) => (
-            <th key={column}>{column}</th>
+            <th className='text-black' key={column}>{column}</th>
           ))}
         </tr>
       </thead>
       <tbody>
         {rows.map((row) => (
           <tr key={row}>
-            <td>{row}</td>
+            <td className='text-black'>{row}</td>
             {columns.map((column) => (
               <td key={column}>
-                <input
+                <div className='checkbox-container'>
+                <input className='circular-checkbox'
                   type="checkbox"
                   checked={checkedCells[`${row}-${column}`] || false}
                   onChange={() => onCheckboxChange(row, column)}
                 />
+                </div>  
               </td>
             ))}
           </tr>

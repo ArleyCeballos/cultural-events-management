@@ -19,12 +19,13 @@ const config: Config = {
         "light-grey": '#A7A7A7',
         "degradate-gray":"#1C1C1C",
         "card-grey": "#242424",
-        "NavBar": "0F0F0F",
+        "NavBar": "#3B4653",
         "Icon-fond": "#090909",
         "Text-Icon": "#9F9F9F",
         "Show":"#B3B3B3",
-        "Card-Font": "#181818"
-        
+        "Card-Font": "#181818",
+        "svg-fond": "#1F4E99",
+        "sideBar": "#1B222A",
       }
 
     },
