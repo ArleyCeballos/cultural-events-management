@@ -22,14 +22,15 @@ const Card: React.FC<CardProps> = ({ icon, text, options }) => {
                 <div className='text-2xl'>{icon}</div>
                 <div>{text}</div>
                 <div onClick={() => toggleOption(0)}>
-                    <span className='text-2xl'>{showOptions[0] ? <MdKeyboardArrowRight/> : <MdKeyboardArrowDown/> }</span>
+                    <span className='text-2xl'>{showOptions[0] ? <MdKeyboardArrowRight /> : <MdKeyboardArrowDown />}</span>
                 </div>
             </div>
             {showOptions[0] && (
-                <div className="card-options">
+                <div className='bg-option-mode'>
                     {options.map((option, index) => (
-                        <div key={index} className="option text-center py-2" onClick={() => toggleOption(index)}>
+                        <div key={index} className="flex flex-col card-options option items-center py-2" onClick={() => toggleOption(index)}>
                             {option}
+                            <div className='separator'></div>
                         </div>
                     ))}
                 </div>
