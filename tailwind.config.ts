@@ -17,15 +17,18 @@ const config: Config = {
       colors: {
         "event-gray": '#121212',
         "light-grey": '#A7A7A7',
-        "degradate-gray":"#1C1C1C",
+        "degradate-gray": "#1C1C1C",
         "card-grey": "#242424",
         "NavBar": "#3B4653",
         "Icon-fond": "#090909",
         "Text-Icon": "#9F9F9F",
-        "Show":"#B3B3B3",
+        "Show": "#B3B3B3",
         "Card-Font": "#181818",
         "svg-fond": "#1F4E99",
         "sideBar": "#1B222A",
+        "main": "#F2F1F6",
+        "gray-title": "#7B7B7B",
+        "option-mode": "#3B4653"
       }
 
     },

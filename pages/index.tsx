@@ -1,48 +1,80 @@
 import { Sidebar } from "@/components/Sidebar"
 import { InterceptionTable } from "@/components/InterceptionTable";
 import { useState, useEffect } from "react";
-import data from './data.json'; // Asegúrate de que la ruta al archivo es correcta
+import data from './data.json';
+import { EditPermision } from "@/components/Dialogs/EditPermision";
+import axios from "axios";
+
+//Interface para saber de qué tipo es la respuesta del axios
+interface MyData {
+  applies: boolean;
+  responsability_id: number;
+  mode_id: number;
+  space_id: number;
+  id: number;
+}
 
 const Home = () => {
-  const [checkedCells, setCheckedCells] = useState({});
+  const [checkedCells, setCheckedCells] = useState<{ [key: string]: boolean }>({});
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [rows, setRows] = useState<string[]>([]);
+  const [columns, setColumns] = useState<string[]>([]);
 
-  // Convertir el JSON a un formato utilizable
   useEffect(() => {
-    const initialCheckedCells: {[key: string]: boolean} = {}; // Declarar el tipo aquí
-    data.forEach((item: {[key: string]: string}) => { // Declarar el tipo aquí
-      Object.keys(item).forEach((key) => {
-        if (key !== 'Responsabilidad' && item[key] === 'x') {
-          initialCheckedCells[`${item.Responsabilidad}-${key}`] = true;
-        }
-      });
+    // Realizar una solicitud HTTP para obtener los datos de la API
+    axios.get('http://localhost:8007/api/responsability-by-mode?skip=0&limit=50').then((response) => {
+      if (response.status === 200) {
+        // Filtrar los datos por el modo deseado
+        console.log(response.data)
+        const filteredData: MyData[] = response.data.filter((item: MyData) => item.mode_id === 1);
+        
+        // Obtener la lista de filas y columnas
+        const rows = filteredData.map((item: MyData) => item.responsability_id.toString());
+        const columns = Array.from(new Set(filteredData.map((item: MyData) => item.space_id.toString())));
+
+        // Crear un objeto con el estado inicial de las casillas marcadas
+        const initialCheckedCells: { [key: string]: boolean } = {};
+        filteredData.forEach((item: MyData) => {
+          if (item.applies) {
+            initialCheckedCells[`${item.responsability_id}-${item.space_id}`] = true;
+          }
+        });
+
+        // Configurar los estados de las filas, columnas y las casillas marcadas
+        setRows(rows);
+        setColumns(columns);
+        setCheckedCells(initialCheckedCells);
+      }
     });
-    setCheckedCells(initialCheckedCells);
   }, []);
 
-  const handleCheckboxChange = (row: string, column: string) => {
-    // Implementa la lógica para manejar el cambio de casilla de verificación aquí
-    // Por ejemplo, puedes actualizar el estado checkedCells aquí
+  const handleCheckboxChange = (responsability: string, space: string) => {
+    // Aquí puedes realizar cualquier acción que necesites cuando se cambia una casilla
+    setDialogOpen(true);
   };
-
-  const rows = data.map(item => item.Responsabilidad);
-  const columns = Object.keys(data[0]).filter(key => key !== 'Responsabilidad');
 
   return (
     <div className="bg-black h-full flex text-white">
       <Sidebar />
-      <main className="w-full p-2 bg-white">
-        <InterceptionTable
-
-          title="Alquiler"
-          rows={rows}
-          columns={columns}
-          initialCheckedCells={checkedCells} // Pasa el estado inicial de las casillas
-          onCheckboxChange={handleCheckboxChange} // Si deseas manejar cambios en las casillas
-        />
-        <section></section>
-        <footer></footer>
+      <main className="w-full p-2 bg-main">
+        <div className="flex flex-col items-center px-6">
+          <div className="py-6">
+            <h1 className="text-gray-title font-bold text-4xl">
+              Gestión de Permisos
+            </h1>
+          </div>
+          <InterceptionTable
+            title="Alquiler"
+            rows={rows}
+            columns={columns}
+            initialCheckedCells={checkedCells}
+            onCheckboxChange={handleCheckboxChange}
+          />
+          <EditPermision open={dialogOpen} setDialogOpen={setDialogOpen} />
+        </div>
       </main>
     </div>
-  )
-}
-export default Home
+  );
+};
+
+export default Home;
