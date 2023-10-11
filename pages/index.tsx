@@ -5,77 +5,59 @@ import data from './data.json';
 import { EditPermision } from "@/components/Dialogs/EditPermision";
 import axios from "axios";
 
+//Interface para saber de qué tipo es la respuesta del axios
+interface MyData {
+  applies: boolean;
+  responsability_id: number;
+  mode_id: number;
+  space_id: number;
+  id: number;
+}
+
 const Home = () => {
-
-  interface Modes {
-    name: string
-    id: number
-  }
-
-  interface List {
-    applies: boolean,
-    responsability_id: string,
-    mode_id: number,
-    space_id: number,
-    id: number
-  }
-
-  const params = {
-    skip: 0,
-    limit: 25,
-    applies: null,
-    responsability: null,
-    space_id: null,
-    mode_id: 1
-  }
-
-  const getModes = (): Modes[] => {
-    axios.get("http://localhost:8007/api/contractual-modes/").then((response) => {
-      return response.data
-    })
-  }
-
-  let modes: Modes[] = getModes()
-
-  let data2: List[] = []
-
-  let response = axios.get("http://localhost:8007/api/responsability-by-mode", {
-    params: params,
-    paramsSerializer: {
-      indexes: null,
-    },
-  }).then((response) => {
-    data2 = response.data
-  })
-
-  let responseModes = 
-
-  const [checkedCells, setCheckedCells] = useState({});
-
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false)
+  const [checkedCells, setCheckedCells] = useState<{ [key: string]: boolean }>({});
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [rows, setRows] = useState<string[]>([]);
+  const [columns, setColumns] = useState<string[]>([]);
 
   useEffect(() => {
-    const initialCheckedCells: { [key: string]: boolean } = {}; // Declarar el tipo aquí
+    // Realizar una solicitud HTTP para obtener los datos de la API
+    axios.get('http://localhost:8007/api/responsability-by-mode?skip=0&limit=50').then((response) => {
+      if (response.status === 200) {
+        // Filtrar los datos por el modo deseado
+        console.log(response.data)
+        const filteredData: MyData[] = response.data.filter((item: MyData) => item.mode_id === 1);
+        
+        // Obtener la lista de filas y columnas
+        const rows = filteredData.map((item: MyData) => item.responsability_id.toString());
+        const columns = Array.from(new Set(filteredData.map((item: MyData) => item.space_id.toString())));
 
-    data2.forEach((list) => {
-      initialCheckedCells[`${list.responsability_id}-${list.mode_id}`] = list.applies
-    })
-    setCheckedCells(initialCheckedCells);
+        // Crear un objeto con el estado inicial de las casillas marcadas
+        const initialCheckedCells: { [key: string]: boolean } = {};
+        filteredData.forEach((item: MyData) => {
+          if (item.applies) {
+            initialCheckedCells[`${item.responsability_id}-${item.space_id}`] = true;
+          }
+        });
+
+        // Configurar los estados de las filas, columnas y las casillas marcadas
+        setRows(rows);
+        setColumns(columns);
+        setCheckedCells(initialCheckedCells);
+      }
+    });
   }, []);
 
-  const handleCheckboxChange = (permiso: string, espacio: string) => {
+  const handleCheckboxChange = (responsability: string, space: string) => {
+    // Aquí puedes realizar cualquier acción que necesites cuando se cambia una casilla
     setDialogOpen(true);
   };
-  const rows = data2.map(item => item.responsability_id);
-  const columns = modes.map((mode) => mode.name)
 
   return (
     <div className="bg-black h-full flex text-white">
       <Sidebar />
       <main className="w-full p-2 bg-main">
-
         <div className="flex flex-col items-center px-6">
-
           <div className="py-6">
             <h1 className="text-gray-title font-bold text-4xl">
               Gestión de Permisos
@@ -88,11 +70,11 @@ const Home = () => {
             initialCheckedCells={checkedCells}
             onCheckboxChange={handleCheckboxChange}
           />
-
           <EditPermision open={dialogOpen} setDialogOpen={setDialogOpen} />
         </div>
       </main>
     </div>
-  )
-}
-export default Home
+  );
+};
+
+export default Home;
