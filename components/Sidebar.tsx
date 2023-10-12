@@ -2,7 +2,11 @@ import { MdShield } from 'react-icons/md'
 import { TeatroIcon } from "./TeatroIcon"
 import { Card } from './Card'
 
-const Sidebar = () => {
+interface SidebarProps {
+    onCardOptionClick: (modeId: number) => void;
+  }
+
+const Sidebar = ({ onCardOptionClick }: SidebarProps) => {
     return (
         <aside className=" bg-sideBar w-[670px] flex flex-col">
             <div className="bg-svg-fond">
@@ -10,8 +14,13 @@ const Sidebar = () => {
             </div>
             <div className="h-full flex flex-col gap-6">
                 <Card
-                    options={[<p>Alquiler</p>, <p>Co-Producción</p>, <p>Propio</p>,
-                    <p>Apoyo</p>, <p>Canje</p>, <p>Proyecto</p>]}
+                    options={[<p onClick={() => onCardOptionClick(1)}>Alquiler</p>,
+                    <p onClick={() => onCardOptionClick(2)}>Co-Producción</p>,
+                    <p onClick={() => onCardOptionClick(3)}>Propio</p>,
+                    <p onClick={() => onCardOptionClick(4)}>Apoyo</p>,
+                    <p onClick={() => onCardOptionClick(5)}>Canje</p>,
+                    <p onClick={() => onCardOptionClick(6)}>Proyecto</p>
+                ]}
                     text='Permisos'
                     icon={<MdShield />} />
             </div>

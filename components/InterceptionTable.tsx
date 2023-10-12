@@ -21,6 +21,10 @@ const InterceptionTable: React.FC<InterceptionTableProps> = ({ rows, columns, in
     }
   }, [initialCheckedCells]);
 
+  // Función para generar claves únicas para cada celda
+  const generateCellKey = (row: string, column: string) => `${row}-${column}`;
+
+
   return (
     <table className='custom-table bg-white' style={{ borderCollapse: 'collapse', width: '100%' }}>
       <thead>
@@ -36,11 +40,11 @@ const InterceptionTable: React.FC<InterceptionTableProps> = ({ rows, columns, in
           <tr key={row}>
             <td className='text-gray-title'>{row}</td>
             {columns.map((column) => (
-              <td key={column}>
+              <td key={generateCellKey(row, column)}>
                 <div className='checkbox-container'>
                   <input className='circular-checkbox'
                     type="checkbox"
-                    checked={checkedCells[`${row}-${column}`] || false}
+                    checked={checkedCells[generateCellKey(row, column)] || false}
                     onChange={() => onCheckboxChange(row, column)}
                   />
                 </div>
