@@ -15,11 +15,11 @@ const Sidebar = ({ onCardOptionClick }: SidebarProps) => {
             <div className="h-full flex flex-col gap-6">
                 <Card
                     options={[<p onClick={() => onCardOptionClick(1)}>Alquiler</p>,
-                    <p onClick={() => onCardOptionClick(2)}>Co-Producción</p>,
-                    <p onClick={() => onCardOptionClick(3)}>Propio</p>,
-                    <p onClick={() => onCardOptionClick(4)}>Apoyo</p>,
-                    <p onClick={() => onCardOptionClick(5)}>Canje</p>,
-                    <p onClick={() => onCardOptionClick(6)}>Proyecto</p>
+                    <p onClick={() => onCardOptionClick(2)}>Propio</p>,
+                    <p onClick={() => onCardOptionClick(3)}>Proyecto</p>,
+                    <p onClick={() => onCardOptionClick(4)}>Co-Producción</p>,
+                    <p onClick={() => onCardOptionClick(5)}>Apoyo</p>,
+                    <p onClick={() => onCardOptionClick(6)}>Canje</p>
                 ]}
                     text='Permisos'
                     icon={<MdShield />} />

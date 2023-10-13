@@ -17,7 +17,7 @@ const EditPermision = ({ open, setDialogOpen }: EditPermisionProps) => {
             <DialogContent className=" bg-main">
                 <div className="flex flex-row items-center justify-center gap-5">
 
-                    <span>Vas a cambiar el permiso X del espacio Y estas seguro? </span>
+                    <span>Vas a cambiar la responsabilidad X del espacio Y estas seguro? </span>
                     <Button text={"Sí"} type="secondary" handleClick={() => {
                         setDialogOpen(false)
                     }} />
