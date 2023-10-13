@@ -26,6 +26,14 @@ const Home = () => {
   const [columns, setColumns] = useState<string[]>([]);
   const [modeId, setModeId] = useState<number | null>(null); // Estado para almacenar el modeId
   const [modeName, setmodeName] = useState("");
+  const [selectedCellKey, setSelectedCellKey] = useState("")
+
+  //useState<string | null>(null);
+
+  const handleCellClick = (cellKey: string) => {
+    setSelectedCellKey(cellKey);
+    console.log(cellKey)
+  };
 
   const onCardOptionClick = (modeId: number) => {
     setModeId(modeId)
@@ -70,7 +78,6 @@ const Home = () => {
   }, [modeId]);
 
   const handleCheckboxChange = (responsability: string, space: string) => {
-    // Aquí puedes realizar cualquier acción que necesites cuando se cambia una casilla
     setDialogOpen(true);
   };
 
@@ -90,8 +97,9 @@ const Home = () => {
             columns={columns} // Deben ser 5 espacios
             initialCheckedCells={checkedCells}
             onCheckboxChange={handleCheckboxChange}
+            onCellClick={handleCellClick}
           />
-          <EditPermision open={dialogOpen} setDialogOpen={setDialogOpen} />
+          <EditPermision open={dialogOpen} setDialogOpen={setDialogOpen} responsabilidad={selectedCellKey} />
         </div>
       </main>
     </div>

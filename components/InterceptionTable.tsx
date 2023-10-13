@@ -8,9 +8,10 @@ interface InterceptionTableProps {
   keyId: string[]
   onCheckboxChange: (row: string, column: string) => void;
   title: string;
+  onCellClick: (cellKey: string) => void;
 }
 
-const InterceptionTable: React.FC<InterceptionTableProps> = ({ rows, columns, initialCheckedCells, keyId, title, onCheckboxChange }) => {
+const InterceptionTable: React.FC<InterceptionTableProps> = ({ rows, columns, initialCheckedCells, keyId, title, onCheckboxChange, onCellClick }) => {
 
 
   const [checkedCells, setCheckedCells] = useState<{ [key: string]: boolean }>({});
@@ -46,7 +47,11 @@ const InterceptionTable: React.FC<InterceptionTableProps> = ({ rows, columns, in
                   <input className='circular-checkbox'
                     type="checkbox"
                     checked={checkedCells[generateCellKey(row, column)] || false}
-                    onChange={() => onCheckboxChange(row, column)}
+                    onChange={() => {
+                      onCheckboxChange(row, column)
+                      const cellKey = generateCellKey(row, column);
+                      onCellClick(cellKey)
+                    }}
                   />
                 </div>
               </td>
