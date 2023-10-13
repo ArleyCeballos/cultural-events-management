@@ -5,9 +5,10 @@ import { Dispatch, SetStateAction } from "react";
 interface EditPermisionProps {
     open: boolean;
     setDialogOpen: Dispatch<SetStateAction<boolean>>
+    responsabilidad: string
 }
 
-const EditPermision = ({ open, setDialogOpen }: EditPermisionProps) => {
+const EditPermision = ({ open, setDialogOpen, responsabilidad }: EditPermisionProps) => {
     return (
         <Dialog open={open}>
             <DialogTitle className="bg-main">
@@ -17,7 +18,7 @@ const EditPermision = ({ open, setDialogOpen }: EditPermisionProps) => {
             <DialogContent className=" bg-main">
                 <div className="flex flex-row items-center justify-center gap-5">
 
-                    <span>Vas a cambiar la responsabilidad X del espacio Y estas seguro? </span>
+                    <span>Vas a cambiar la responsabilidad {responsabilidad} estas seguro? </span>
                     <Button text={"Sí"} type="secondary" handleClick={() => {
                         setDialogOpen(false)
                     }} />
