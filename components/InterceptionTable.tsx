@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { EditPermision } from './Dialogs/EditPermision';
 
 interface InterceptionTableProps {
   rows: string[];
@@ -33,14 +32,14 @@ const InterceptionTable: React.FC<InterceptionTableProps> = ({ rows, columns, in
         <tr>
           <th className='text-black'>{title}</th>
           {columns.map((column) => (
-            <th className='text-gray-title' key={column}>{column}</th>
+            <th className='capitalize text-gray-title' key={column}>{column}</th>
           ))}
         </tr>
       </thead>
       <tbody>
         {rows.map((row) => (
           <tr key={row}>
-            <td className='text-gray-title'>{row}</td>
+            <td className=' capitalize text-gray-title'>{row}</td>
             {columns.map((column, columnIndex) => (
               <td key={keyId[columnIndex]}>
                 <div className='checkbox-container'>

@@ -6,9 +6,10 @@ interface EditPermisionProps {
     open: boolean;
     setDialogOpen: Dispatch<SetStateAction<boolean>>
     responsabilidad: string
+    onConfirm: () => void
 }
 
-const EditPermision = ({ open, setDialogOpen, responsabilidad }: EditPermisionProps) => {
+const EditPermision = ({ open, setDialogOpen, responsabilidad, onConfirm }: EditPermisionProps) => {
     return (
         <Dialog open={open}>
             <DialogTitle className="bg-main">
@@ -18,8 +19,9 @@ const EditPermision = ({ open, setDialogOpen, responsabilidad }: EditPermisionPr
             <DialogContent className=" bg-main">
                 <div className="flex flex-row items-center justify-center gap-5">
 
-                    <span>Vas a cambiar la responsabilidad {responsabilidad} estas seguro? </span>
+                    <span>Vas a cambiar la responsabilidad <span className="font-bold">{responsabilidad}</span> estas seguro? </span>
                     <Button text={"Sí"} type="secondary" handleClick={() => {
+                        onConfirm();
                         setDialogOpen(false)
                     }} />
 
