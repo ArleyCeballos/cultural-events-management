@@ -1,7 +1,7 @@
 
 const TeatroIcon = () => {
     return (
-        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194 82">
+        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 85">
             <defs>
                 <style>
                     .cls-1 {"fill: #ffedd7"}
