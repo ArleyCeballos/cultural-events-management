@@ -8,27 +8,29 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ icon, text, options }) => {
-    const [showOptions, setShowOptions] = useState<boolean[]>(Array(options.length).fill(false));
+    const [showOptions, setShowOptions] = useState(false);
 
-    const toggleOption = (index: number) => {
-        const newOptionsState = [...showOptions];
-        newOptionsState[index] = !newOptionsState[index];
-        setShowOptions(newOptionsState);
+    const toggleOptions = () => {
+        setShowOptions(!showOptions);
+    };
+
+    const stopPropagation = (e: React.MouseEvent) => {
+        e.stopPropagation(); // Evita que el clic en una opción propague al contenedor y cierre el card
     };
 
     return (
-        <div>
+        <div onClick={toggleOptions}> {/* Hacer clic en el card completo abre/cierra */}
             <div className='flex justify-between items-center p-2'>
                 <div className='text-2xl'>{icon}</div>
                 <div>{text}</div>
-                <div onClick={() => toggleOption(0)}>
-                    <span className='text-2xl'>{showOptions[0] ? <MdKeyboardArrowRight /> : <MdKeyboardArrowDown />}</span>
+                <div>
+                    <span className='text-2xl'>{showOptions ? <MdKeyboardArrowRight /> : <MdKeyboardArrowDown />}</span>
                 </div>
             </div>
-            {showOptions[0] && (
-                <div className='bg-option-mode'>
+            {showOptions && (
+                <div className='bg-option-mode' onClick={stopPropagation}>
                     {options.map((option, index) => (
-                        <div key={index} className="flex flex-col card-options option items-center py-2" onClick={() => toggleOption(index)}>
+                        <div key={index} className="flex flex-col card-options option items-center py-2" onClick={stopPropagation}>
                             {option}
                             <div className='separator'></div>
                         </div>

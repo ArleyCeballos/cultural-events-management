@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogTitle } from "@mui/material"
 import { Dispatch, SetStateAction } from "react";
-import { Button } from "../Button/Button";
+import { Button } from "../../Button/Button";
 
 interface EditPermisionProps {
     open: boolean;

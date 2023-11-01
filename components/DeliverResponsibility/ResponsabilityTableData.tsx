@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { ResponsibilityTable } from './ResponsabilityTable';
-import { FileInput } from './FileInput';
+import { FileInput } from '../UserActions/FileInput';
 
 
 interface ResponsibilityTableDataProps {
@@ -11,13 +9,13 @@ const ResponsibilityTableData = ({ Name, Status }: ResponsibilityTableDataProps)
 
   let statusColor = '';
   switch (Status) {
-    case 'aprobado':
+    case 'Entregado':
       statusColor = 'bg-green-400';
       break;
-    case 'en proceso':
+    case 'En proceso':
       statusColor = 'bg-yellow-400';
       break;
-    case 'terminado':
+    case 'Terminado':
       statusColor = 'bg-blue-400';
       break;
     default:
@@ -25,7 +23,7 @@ const ResponsibilityTableData = ({ Name, Status }: ResponsibilityTableDataProps)
       break;
   }
   return (
-    
+
     <tr className='text-center'>
       <td className="border px-2 py-2">{Name}</td>
       <td className="border px-2 py-2"><input type="date" disabled /></td>

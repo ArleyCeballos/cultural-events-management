@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { EditPermision } from "@/components/Dialogs/EditPermision";
+import { EditPermision } from "@/components/Dialogs/EditPermision/EditPermision";
 import axios from "axios";
-import { title } from "process";
 import { InterceptionTable } from "@/components/InterceptionTable/InterceptionTable";
 import { useRouter } from 'next/router';
 
@@ -31,9 +30,10 @@ const Home = () => {
 
   const router = useRouter();
   const valorNumerico = router.query.modeId;
+
   // Convierte valorNumerico a número o asigna null si es undefined
   const modeId2 = typeof valorNumerico === 'string' ? parseInt(valorNumerico, 10) : null;
-  if(modeId !== modeId2){
+  if (modeId !== modeId2) {
     setModeId(modeId2)
   }
 
@@ -142,7 +142,7 @@ const Home = () => {
   }, [modeId]);
 
   return (
-    <div className="bg-black h-full flex text-white">
+    <div className="bg-black h-full w-full flex text-white">
       <main className="w-full p-2 bg-main">
         <div className="flex flex-col items-center px-6">
           <div className="py-6 flex flex-col items-center">
