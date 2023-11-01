@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { useState } from 'react';
+import { MdModeEditOutline, MdDeleteOutline } from 'react-icons/md';
 
 const FileInput = () => {
   const [buttonColor, setButtonColor] = useState('blue');
@@ -14,12 +14,10 @@ const FileInput = () => {
   };
 
   return (
-    <button style={{ backgroundColor: buttonColor }} disabled={isDisabled}>
-      <a href="/FileUploadPage" >
-       Subir Archivos 
-      </a>
-      <button onClick={handleButtonClick}>Guardar</button>
-    </button>
+    <div className='text-3xl flex gap-2'>
+      <MdModeEditOutline className="text-gray-900 hover:text-yellow-600 hover:cursor-pointer" />
+      <MdDeleteOutline className="text-gray-900 hover:text-red-600 hover:cursor-pointer" />
+    </div>
   );
 }
 
