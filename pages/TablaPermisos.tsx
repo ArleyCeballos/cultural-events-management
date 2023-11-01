@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { EditPermision } from "@/components/Dialogs/EditPermision";
+import { EditPermision } from "@/components/Dialogs/EditPermision/EditPermision";
 import axios from "axios";
-import { title } from "process";
 import { InterceptionTable } from "@/components/InterceptionTable/InterceptionTable";
 import { useRouter } from 'next/router';
 
@@ -34,7 +33,7 @@ const Home = () => {
 
   // Convierte valorNumerico a número o asigna null si es undefined
   const modeId2 = typeof valorNumerico === 'string' ? parseInt(valorNumerico, 10) : null;
-  if(modeId !== modeId2){
+  if (modeId !== modeId2) {
     setModeId(modeId2)
   }
 

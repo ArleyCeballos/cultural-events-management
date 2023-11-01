@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { ResponsibilityTable } from './ResponsabilityTable';
 import { FileInput } from '../UserActions/FileInput';
 
 
@@ -25,7 +23,7 @@ const ResponsibilityTableData = ({ Name, Status }: ResponsibilityTableDataProps)
       break;
   }
   return (
-    
+
     <tr className='text-center'>
       <td className="border px-2 py-2">{Name}</td>
       <td className="border px-2 py-2"><input type="date" disabled /></td>
