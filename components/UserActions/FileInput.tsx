@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MdModeEditOutline, MdDeleteOutline } from 'react-icons/md';
-import { DeliverablesDialog } from '../Dialogs/DeliverableResponsability/deliverablesDialog';
+import { DeliverablesDialog } from '../Dialogs/DeliverableResponsability/DeliverablesDialog';
 
 const FileInput = () => {
 

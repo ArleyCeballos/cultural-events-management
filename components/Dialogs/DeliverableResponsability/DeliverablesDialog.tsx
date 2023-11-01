@@ -25,7 +25,7 @@ const DeliverablesDialog = ({ open, setDialogOpen }: deliverablesDialogProps) =>
     };
 
     return (
-        <Dialog open={false} className="flex flex-col">
+        <Dialog open={open}>
             <DialogTitle>Observaciones</DialogTitle>
             <DialogContent>
                 <TextField
@@ -48,6 +48,10 @@ const DeliverablesDialog = ({ open, setDialogOpen }: deliverablesDialogProps) =>
                         </ListItem>
                     ))}
                 </List>
+
+                <Button text="Cerrar" type="secondary" handleClick={
+                    () => { setDialogOpen(false) }
+                } />
             </DialogContent>
 
             <DialogTitle>Marcar responsabilidad como terminada</DialogTitle>
@@ -58,9 +62,6 @@ const DeliverablesDialog = ({ open, setDialogOpen }: deliverablesDialogProps) =>
                 />
             </DialogContent>
 
-            <Button text="Cerrar" type="secondary" handleClick={
-                () => { setDialogOpen(false) }
-            } />
         </Dialog>
     );
 };
