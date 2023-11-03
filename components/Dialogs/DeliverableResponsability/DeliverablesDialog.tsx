@@ -1,7 +1,6 @@
-import { Button } from "@/components/Button/Button";
+import { AiFillCloseCircle } from 'react-icons/ai';
 import { Checkbox, Dialog, DialogContent, DialogTitle, List, ListItem, ListItemSecondaryAction, ListItemText, TextField } from "@mui/material"
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-
 
 interface deliverablesDialogProps {
     open: boolean
@@ -15,18 +14,18 @@ const DeliverablesDialog = ({ open, setDialogOpen }: deliverablesDialogProps) =>
 
     const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
-        // Puedes realizar alguna lógica para guardar los archivos en tu backend o en algún servicio de almacenamiento.
-        // Por ahora, simplemente los almacenaremos en el estado de `deliverables`.
         if (files) {
             const fileArray = Array.from(files as FileList);
-            // Resto del código
             setDeliverables([...deliverables, ...fileArray]);
         }
     };
 
     return (
         <Dialog open={open}>
-            <DialogTitle>Observaciones</DialogTitle>
+            <DialogTitle>
+                Observaciones
+                <AiFillCloseCircle style={{ float: 'right', cursor: 'pointer' }} onClick={() => { setDialogOpen(false) }} />
+            </DialogTitle>
             <DialogContent>
                 <TextField
                     label="Introducir observaciones"
@@ -48,10 +47,6 @@ const DeliverablesDialog = ({ open, setDialogOpen }: deliverablesDialogProps) =>
                         </ListItem>
                     ))}
                 </List>
-
-                <Button text="Cerrar" type="secondary" handleClick={
-                    () => { setDialogOpen(false) }
-                } />
             </DialogContent>
 
             <DialogTitle>Marcar responsabilidad como terminada</DialogTitle>

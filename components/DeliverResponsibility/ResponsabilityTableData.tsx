@@ -15,7 +15,7 @@ const ResponsibilityTableData = ({ Name, Status }: ResponsibilityTableDataProps)
     case 'En proceso':
       statusColor = 'bg-yellow-400';
       break;
-    case 'Terminado':
+    case 'Pendiente':
       statusColor = 'bg-blue-400';
       break;
     default:

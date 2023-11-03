@@ -12,7 +12,7 @@ const ResponsibilityTable = () => {
 
   const generateRandomData = () => {
     const names = ["Nombre 1", "Nombre 2", "Nombre 3", "Nombre 4"];
-    const statuses = ["Aprobado", "En proceso", "Terminado"];
+    const statuses = ["Pendiente"];
 
     const randomName = names[Math.floor(Math.random() * names.length)];
     const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
@@ -41,7 +41,7 @@ const ResponsibilityTable = () => {
         return 'bg-green-400';
       case 'En proceso':
         return 'bg-yellow-400';
-      case 'Terminado':
+      case 'Pendiente':
         return 'bg-blue-400';
       default:
         return 'bg-gray-400';
@@ -70,7 +70,7 @@ const ResponsibilityTable = () => {
               <tr key={index} className='text-center'>
                 <td className='text-gray-title'>{item.Name}</td>
                 <td className='text-gray-title'>{item.CreationDate}</td>
-                <td className='text-gray-title'>{item.CompletionDate}</td>
+                <td className='text-gray-title'></td>
                 <td className={`${getStatusColor(item.Status)} text-white text-center font-semibold`}>
                   {item.Status}
                 </td>
