@@ -38,6 +38,9 @@ const Sidebar = () => {
                     [<Link href={`/responsabily_compliance`} as="/responsabily_compliance">
                         Pendientes por cumplimiento
                     </Link>,
+                    <Link href={`/eventosEnEspera`} as="/eventosEnEspera">
+                        Eventos en espera
+                    </Link>
                     ]}
                 text='Eventos'
                 icon={<MdCalendarMonth />} />
