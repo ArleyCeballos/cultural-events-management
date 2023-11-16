@@ -1,4 +1,5 @@
 import { MdCalendarMonth, MdShield } from 'react-icons/md'
+import { TbReportSearch } from "react-icons/tb"
 import { Card } from '../Card/Card'
 import { TeatroIcon } from '../TeatroIcon/TeatroIcon';
 import Link from 'next/link';
@@ -44,6 +45,15 @@ const Sidebar = () => {
                     ]}
                 text='Eventos'
                 icon={<MdCalendarMonth />} />
+
+            <Card
+                options={
+                    [<Link href={`/reportes`} as="/reportes">
+                        Gráficas de reportes
+                    </Link>,
+                    ]}
+                text='Reportes'
+                icon={<TbReportSearch />} />
         </aside>
     )
 }
