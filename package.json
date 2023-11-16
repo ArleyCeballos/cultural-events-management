@@ -13,6 +13,8 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.12",
     "axios": "^1.5.1",
+    "devextreme": "23.1",
+    "devextreme-react": "23.1",
     "docxtemplater": "^3.41.0",
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
