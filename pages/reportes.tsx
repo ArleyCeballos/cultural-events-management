@@ -14,66 +14,126 @@ import {
 
 
   const energySources = [
-    { value: 'hydro', name: 'Hydro-electric' },
-    { value: 'oil', name: 'Oil' },
-    { value: 'gas', name: 'Natural gas' },
-    { value: 'coal', name: 'Coal' },
-    { value: 'nuclear', name: 'Nuclear' },
+    { value: 'Alquiler', name: 'Alquiler' },
+    { value: 'Propio', name: 'Propio' },
+    { value: 'Proyecto', name: 'Proyecto' },
+    { value: 'CoProducción', name: 'CoProducción' },
+    { value: 'Apoyo', name: 'Apoyo' },
+    { value: 'Canje', name: 'Canje' },
   ];
 
   const countriesInfo = [{
-    country: 'USA',
-    hydro: 71.2,
-    oil: 910.4,
-    gas: 483.2,
-    coal: 564.3,
-    nuclear: 216.1,
+    country: 'Enero',
+    Alquiler: 7,
+    Propio: 6,
+    Proyecto: 0,
+    CoProducción: 2,
+    Apoyo:  1,
+    Canje: 8
   }, {
-    country: 'China',
-    hydro: 72.5,
-    oil: 223.6,
-    gas: 36,
-    coal: 956.9,
-    nuclear: 11.3,
+    country: 'Febrero',
+    Alquiler: 7,
+    Propio: 2,
+    Proyecto: 3,
+    CoProducción: 9,
+    Apoyo:  1,
+    Canje: 1
   }, {
-    country: 'Russia',
-    hydro: 47.7,
-    oil: 149.4,
-    gas: 432.3,
-    coal: 105,
-    nuclear: 29.3,
+    country: 'Marzo',
+    Alquiler: 4,
+    Propio: 14,
+    Proyecto: 4,
+    CoProducción: 10,
+    Apoyo:  2,
+    Canje: 1
   }, {
-    country: 'Japan',
-    hydro: 17.9,
-    oil: 283.6,
-    gas: 61.8,
-    coal: 120.8,
-    nuclear: 52.8,
+    country: 'Abril',
+    Alquiler: 17,
+    Propio: 6,
+    Proyecto: 6,
+    CoProducción: 12,
+    Apoyo:  5,
+    Canje: 1
   }, {
-    country: 'India',
-    hydro: 14.4,
-    oil: 86.4,
-    gas: 25.1,
-    coal: 204.8,
-    nuclear: 3.8,
+    country: 'Mayo',
+    Alquiler: 1,
+    Propio: 8,
+    Proyecto: 2,
+    CoProducción: 2,
+    Apoyo:  3,
+    Canje: 4
   }, {
-    country: 'Germany',
-    hydro: 6.6,
-    oil: 101.7,
-    gas: 92.7,
-    coal: 85.7,
-    nuclear: 30.8,
+    country: 'Junio',
+    Alquiler: 5,
+    Propio: 11,
+    Proyecto: 9,
+    CoProducción: 8,
+    Apoyo:  17,
+    Canje: 5
+  },
+  {
+    country: 'Julio',
+    Alquiler: 16,
+    Propio: 10,
+    Proyecto: 16,
+    CoProducción: 7,
+    Apoyo:  15,
+    Canje: 0
+  },
+  {
+    country: 'Agosto',
+    Alquiler: 12,
+    Propio: 3,
+    Proyecto: 6,
+    CoProducción: 4,
+    Apoyo:  2,
+    Canje: 0
+  },
+  {
+    country: 'Septiembre',
+    Alquiler: 14,
+    Propio: 3,
+    Proyecto: 7,
+    CoProducción: 0,
+    Apoyo:  4,
+    Canje: 1
+  },
+  {
+    country: 'Octubre',
+    Alquiler: 21,
+    Propio: 1,
+    Proyecto: 4,
+    CoProducción: 0,
+    Apoyo:  2,
+    Canje: 0
+  },
+  {
+    country: 'Noviembre',
+    Alquiler: 0,
+    Propio: 1,
+    Proyecto: 14,
+    CoProducción: 12,
+    Apoyo:  15,
+    Canje: 2
+  },
+  {
+    country: 'Diciembre',
+    Alquiler: 4,
+    Propio: 4,
+    Proyecto: 3,
+    CoProducción: 5,
+    Apoyo:  17,
+    Canje: 1
   }];
 
 export default function Home() {
 
     return (
         <div className="w-full h-screen bg-gradient-to-r to-blue-800 from-white flex items-center justify-center">
-            <div className="bg-white rounded-lg p-8 shadow-md w-96">
+            <div className="bg-white rounded-lg p-8 shadow-md w-5/6">
                 <h1 className="text-3xl font-bold text-center mb-4">
                     Bienvenido a reportes
                 </h1>
-                <div>
                     <Chart
                         palette="Violet"
                         dataSource={countriesInfo}
@@ -101,12 +161,11 @@ export default function Home() {
                             itemTextPosition="bottom"
                         />
                         <Export enabled={true} />
-                        <Title text="Energy Consumption in 2004">
-                            <Subtitle text="(Millions of Tons, Oil Equivalent)" />
+                        <Title text="Eventos por modalidad contractual">
+                            <Subtitle text="Total eventos de cada modalidad por mes" />
                         </Title>
                         <Tooltip enabled={true} />
                     </Chart>
-                </div>
                 <div className="text-center">
                 </div>
             </div>
