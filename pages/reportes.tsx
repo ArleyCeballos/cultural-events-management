@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
     Chart,
     Series,
@@ -126,7 +127,8 @@ import {
     Canje: 1
   }];
 
-export default function Home() {
+  export default function Home() {
+    const [selectedMode, setSelectedMode] = useState('Todos');
 
     return (
         <div className="w-full h-screen bg-gradient-to-r to-blue-800 from-white flex items-center justify-center">
@@ -134,38 +136,43 @@ export default function Home() {
                 <h1 className="text-3xl font-bold text-center mb-4">
                     Bienvenido a reportes
                 </h1>
-                    <Chart
-                        palette="Violet"
-                        dataSource={countriesInfo}
+                <select value={selectedMode} onChange={(e) => setSelectedMode(e.target.value)}>
+                    <option value="Todos">Todos</option>
+                    {energySources.map((source) => 
+                        <option key={source.value} value={source.value}>{source.name}</option>
+                    )}
+                </select>
+                <Chart
+                    palette="Violet"
+                    dataSource={countriesInfo}
+                >
+                    <CommonSeriesSettings
+                        argumentField="country"
+                        type='line'
+                    />
+                    {
+                        selectedMode === 'Todos' 
+                        ? energySources.map((item) => <Series key={item.value} valueField={item.value} name={item.name} />)
+                        : <Series valueField={selectedMode} name={selectedMode} />
+                    }
+                    <Margin bottom={20} />
+                    <ArgumentAxis
+                        valueMarginsEnabled={false}
+                        discreteAxisDivisionMode="crossLabels"
                     >
-                        <CommonSeriesSettings
-                            argumentField="country"
-                            type='line'
-                        />
-                        {
-                            energySources.map((item) => <Series
-                                key={item.value}
-                                valueField={item.value}
-                                name={item.name} />)
-                        }
-                        <Margin bottom={20} />
-                        <ArgumentAxis
-                            valueMarginsEnabled={false}
-                            discreteAxisDivisionMode="crossLabels"
-                        >
-                            <Grid visible={true} />
-                        </ArgumentAxis>
-                        <Legend
-                            verticalAlignment="bottom"
-                            horizontalAlignment="center"
-                            itemTextPosition="bottom"
-                        />
-                        <Export enabled={true} />
-                        <Title text="Eventos por modalidad contractual">
-                            <Subtitle text="Total eventos de cada modalidad por mes" />
-                        </Title>
-                        <Tooltip enabled={true} />
-                    </Chart>
+                        <Grid visible={true} />
+                    </ArgumentAxis>
+                    <Legend
+                        verticalAlignment="bottom"
+                        horizontalAlignment="center"
+                        itemTextPosition="bottom"
+                    />
+                    <Export enabled={true} />
+                    <Title text="Eventos por modalidad contractual">
+                        <Subtitle text="Total eventos de cada modalidad por mes" />
+                    </Title>
+                    <Tooltip enabled={true} />
+                </Chart>
                 <div className="text-center">
                 </div>
             </div>
