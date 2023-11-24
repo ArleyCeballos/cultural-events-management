@@ -48,7 +48,7 @@ const Sidebar = () => {
 
             <Card
                 options={
-                    [<Link href={`/reportes`} as="/reportes">
+                    [<Link href={`/Reports`} as="/ReportPage">
                         Gráficas de reportes
                     </Link>,
                     ]}
