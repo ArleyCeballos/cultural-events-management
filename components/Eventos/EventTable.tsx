@@ -3,9 +3,9 @@ import axios from 'axios';
 
 interface Event {
     id: string;
-    rider: string;
+    eventType: string;
     place: number;
-    agreement: string;
+    specificName: string; 
     // ... otros campos de evento
 }
 
@@ -16,10 +16,10 @@ interface EventTableProps {
 const EventTable: React.FC<EventTableProps> = ({ itemsPerPage }) => {
     const [events, setEvents] = useState<Event[]>([]);
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
-    const [modalities, setModalities] = useState<string[]>([]); // Agregado el estado modalities
-    const [selectedRider, setSelectedRider] = useState<string>('');
+    const [modalities, setModalities] = useState<string[]>([]); 
+    const [selectedEventType, setSelectedEventType] = useState<string>(''); 
     const [selectedSpace, setSelectedSpace] = useState<string>('');
-    const [selectedAgreement, setSelectedAgreement] = useState<string>('');
+    const [selectedSpecificName, setSelectedSpecificName] = useState<string>(''); 
     const [currentPage, setCurrentPage] = useState(1);
 
     const eventSpaces = [
@@ -31,14 +31,13 @@ const EventTable: React.FC<EventTableProps> = ({ itemsPerPage }) => {
     ];
 
     useEffect(() => {
-        // Realizar una solicitud HTTP para obtener los datos de la API de eventos
         axios.get('http://localhost:8007/api/events/?skip=2&limit=40')
             .then(response => {
                 if (response.status === 200) {
                     setEvents(response.data);
-
-                    // Extraer modalidades únicas y establecerlas en el estado
-                    const uniqueModalities = [...new Set(response.data.map(event => event.rider))];
+    
+                    // Especificación explícita del tipo para 'event'
+                    const uniqueModalities: string[] = Array.from(new Set(response.data.map((event: { eventType: string }) => event.eventType))) as string[];
                     setModalities(uniqueModalities);
                 }
             })
@@ -46,20 +45,19 @@ const EventTable: React.FC<EventTableProps> = ({ itemsPerPage }) => {
                 console.error('Error al obtener datos de eventos:', error);
             });
     }, []);
+    
 
     useEffect(() => {
-        // Filtrar eventos según los criterios seleccionados
         const filtered = events.filter(event => {
-            const riderMatch = !selectedRider || event.rider.toLowerCase().includes(selectedRider.toLowerCase());
+            const eventTypeMatch = !selectedEventType || event.eventType.toLowerCase().includes(selectedEventType.toLowerCase());
             const spaceMatch = !selectedSpace || event.place.toString() === selectedSpace;
-            const agreementMatch = !selectedAgreement || event.agreement.toLowerCase().includes(selectedAgreement.toLowerCase());
-            return riderMatch && spaceMatch && agreementMatch;
+            const specificNameMatch = !selectedSpecificName || event.specificName.toLowerCase().includes(selectedSpecificName.toLowerCase());
+            return eventTypeMatch && spaceMatch && specificNameMatch;
         });
 
-        // Establecer los eventos filtrados y la página actual en 1
         setFilteredEvents(filtered);
         setCurrentPage(1);
-    }, [events, selectedRider, selectedSpace, selectedAgreement]);
+    }, [events, selectedEventType, selectedSpace, selectedSpecificName]);
 
     const paginatedEvents = filteredEvents.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
@@ -69,8 +67,8 @@ const EventTable: React.FC<EventTableProps> = ({ itemsPerPage }) => {
                 <div>
                     <label className='block text-gray-700 text-left'>Modalidad:</label>
                     <select
-                        value={selectedRider}
-                        onChange={(e) => setSelectedRider(e.target.value)}
+                        value={selectedEventType}
+                        onChange={(e) => setSelectedEventType(e.target.value)}
                         className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                     >
                         <option value="">Todos</option>
@@ -98,8 +96,8 @@ const EventTable: React.FC<EventTableProps> = ({ itemsPerPage }) => {
                     <label className='block text-gray-700 text-center'>Nombre del Evento:</label>
                     <input
                         type='text'
-                        value={selectedAgreement}
-                        onChange={(e) => setSelectedAgreement(e.target.value)}
+                        value={selectedSpecificName}
+                        onChange={(e) => setSelectedSpecificName(e.target.value)}
                         className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                     />
                 </div>
@@ -117,9 +115,9 @@ const EventTable: React.FC<EventTableProps> = ({ itemsPerPage }) => {
                     <tbody className='bg-white divide-y divide-gray-200'>
                         {paginatedEvents.map((event, index) => (
                             <tr key={index}>
-                                <td className='px-6 py-4 whitespace-nowrap text-left'>{event.agreement}</td>
-                                <td className='px-6 py-4 whitespace-nowrap text-left'>{event.rider}</td>
+                                <td className='px-6 py-4 whitespace-nowrap text-left'>{event.eventType}</td>
                                 <td className='px-6 py-4 whitespace-nowrap text-left'>{eventSpaces.find(space => space.id.toString() === event.place.toString())?.name}</td>
+                                <td className='px-6 py-4 whitespace-nowrap text-left'>{event.specificName}</td>
                             </tr>
                         ))}
                     </tbody>
